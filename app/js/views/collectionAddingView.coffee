@@ -30,6 +30,8 @@ extend 'nv.CollectionAddingView', class CollectionAddingView extends Backbone.Fi
 extend 'nv.PersonListItemView', class PersonListItemView extends Backbone.Fixins.SuperView
   template: "app/templates/person-list-item.us"
   className: 'person-list-item'
+  initialize: ->
+    @model.set "cid", @model.cid
 
   events:
     "click .remove-me" : "removeMe"
