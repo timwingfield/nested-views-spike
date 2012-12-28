@@ -21,14 +21,27 @@ extend 'nv.AndyList', class AndyList extends Backbone.Fixins.SuperView
 
   initialize: ->
     @$el.on "click", @displayCollectionAddingView
+    @selectedChildren =[]
+
 
   displayCollectionAddingView: =>
-    cav =  new CollectionAddingView model: @model
+    cav = {}
+
+    if @selectedChildren[@model.cid]
+      cav = @selectedChildren[@model.cid]
+      console.log "in if"
+    else
+      cav = new CollectionAddingView model: @model
+      @selectedChildren[@model.cid] = cav
+      console.log "in else"
+
+    $('.children').remove()
     $('.collection').append(cav.render().el)
 
 
 extend 'nv.CollectionAddingView', class CollectionAddingView extends Backbone.Fixins.SuperView
   template: "app/templates/collection-adding.us"
+  className: "children"
 
   events:
     "click .add" : "addPerson"
@@ -54,6 +67,13 @@ extend 'nv.CollectionAddingView', class CollectionAddingView extends Backbone.Fi
 
   removePersonFromList: (model) =>
     @_personListViews[model.cid].remove()
+
+  renderPersonListViews: ->
+   
+    keys = Object.keys @_personListViews
+
+    _(keys).each (key) =>
+      @$('.list-container').append( @_personListViews[key].render().el)
 
 
 extend 'nv.PersonListItemView', class PersonListItemView extends Backbone.Fixins.SuperView
