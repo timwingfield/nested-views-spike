@@ -1,1 +1,2 @@
-<div class="andy-main"></div>
+<div class="andy-main" style="float:left"></div>
+<div class="collection" style="float:right"></div>
