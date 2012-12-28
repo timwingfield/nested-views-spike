@@ -1,4 +1,6 @@
+<h3><%= name %></h3>
 <div class='select-people'>
+  <span> Select Child Name </span>
   <select class="person">
     <option>Brendan</option>
     <option>Alex</option>

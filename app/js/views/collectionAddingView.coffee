@@ -14,16 +14,17 @@ extend 'nv.AndyMain', class AndyMain extends Backbone.Fixins.SuperView
   listPersons: (model) =>
     andyList = new nv.AndyList model: model
     @$('.andy-main').append(andyList.render().el)
-
-    @displayCollectionAddingView(model)
-
-
-  displayCollectionAddingView: =>
-    cav =  new CollectionAddingView
-    @$('.andy-main').append(cav.render().el)
+    
 
 extend 'nv.AndyList', class AndyList extends Backbone.Fixins.SuperView
   template: "app/templates/andy-list.us"
+
+  initialize: ->
+    @$el.on "click", @displayCollectionAddingView
+
+  displayCollectionAddingView: =>
+    cav =  new CollectionAddingView model: @model
+    $('.collection').append(cav.render().el)
 
 
 extend 'nv.CollectionAddingView', class CollectionAddingView extends Backbone.Fixins.SuperView
