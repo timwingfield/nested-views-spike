@@ -1,3 +1,30 @@
+extend 'nv.AndyMain', class AndyMain extends Backbone.Fixins.SuperView
+  template: "app/templates/andy-main.us"
+
+  initialize: ->
+    @model1 = new Backbone.Model id: 3, name: "person 1"
+    @model2 = new Backbone.Model id: 29, name: "person 2"
+    @collection = new Backbone.Collection [@model1, @model2]
+
+  renderList: ->
+    @collection.each (model) => @listPersons(model)
+
+
+  listPersons: (model) =>
+    andyList = new nv.AndyList model: model
+    @$('.andy-main').append(andyList.render().el)
+
+    @displayCollectionAddingView(model)
+
+
+  displayCollectionAddingView: (model) =>
+    cav =  new CollectionAddingView model: model
+    @$('.container').append(cav.render().el)
+
+extend 'nv.AndyList', class AndyList extends Backbone.Fixins.SuperView
+  template: "app/templates/andy-list.us"
+
+
 extend 'nv.CollectionAddingView', class CollectionAddingView extends Backbone.Fixins.SuperView
   template: "app/templates/collection-adding.us"
 
